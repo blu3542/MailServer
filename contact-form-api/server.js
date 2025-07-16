@@ -3,10 +3,13 @@ const express = require('express');
 const cors = require('cors');
 const nodemailer = require('nodemailer');
 
+
+
 const app = express();
 app.use(cors());
 app.use(express.json());
 
+// console.log("Target email: ", process.env.TARGET_EMAIL);
 
 // temporary no-op transporter until you configure real SMTP
 const transporter = nodemailer.createTransport({
@@ -52,8 +55,9 @@ ${message}
 
   try {
     // We won't send yet, just simulate
-    console.log('Simulated send:', mailOptions);
-    res.json({ success: true, simulated: true });
+    await transporter.sendMail(mailOptions);
+    console.log('Message sent!');
+    res.json({ success: true });
   } catch (err) {
     console.error('Error:', err);
     res.status(500).json({ error: 'Failed to send email.' });
