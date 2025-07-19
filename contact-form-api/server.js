@@ -54,7 +54,7 @@ ${message}
   };
 
   try {
-    // We won't send yet, just simulate
+    //send email via SMTP
     await transporter.sendMail(mailOptions);
     console.log('Message sent!');
     res.json({ success: true });
